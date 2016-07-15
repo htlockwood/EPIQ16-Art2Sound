@@ -1,0 +1,184 @@
+use Libraries.Robots.Lego.Motor
+use Libraries.Robots.Lego.ColorSensor
+use Libraries.Robots.Lego.Utility
+use Libraries.Robots.Lego.Screen
+use Libraries.Robots.Lego.Sound
+use Libraries.Robots.Lego.Button
+use Libraries.Robots.Lego.TouchSensor
+use Libraries.Robots.Lego.UltrasonicSensor
+use Libraries.Robots.Lego.GyroSensor
+use Libraries.Containers.Array
+use Libraries.Compute.Math
+
+Motor motor
+ColorSensor colorSensor
+Utility utility
+Screen screen
+Sound sound
+UltrasonicSensor ultrasonicSensor 
+//GyroSensor gyroSensor
+TouchSensor touchSensor
+Button button
+Math math
+//set sensor ports
+ultrasonicSensor:SetPort(2)
+touchSensor:SetPort(4)
+colorSensor:SetPort(1)
+//gyroSensor:SetPort(3)
+integer C3=131
+integer Db3=139
+integer D3=147
+integer Eb3=156
+integer E3=165
+integer F3=175
+integer Gb3=185
+integer G3=196
+integer Ab3=208
+integer A3=220
+integer Bb3=233
+integer B3=247
+integer C4=262
+integer Db4=277
+integer D4=294
+integer Eb4=311
+integer E4=330
+integer F4=349
+integer Gb4=370
+integer G4=392
+integer Ab4=415
+integer A4=440
+integer Bb4=466
+integer B4=494
+integer C5=523
+integer Db5=554
+integer D5=587
+integer Eb5=622
+integer E5=659
+integer F5=698
+integer Gb5=740
+integer G5=784
+integer Ab5=831
+integer A5=880
+integer Bb5=932
+integer B5=988
+integer C6=1047
+integer Db6=1109
+integer D6=1175
+integer Eb6=1245
+integer E6=1319
+integer F6=1397
+integer Gb6=1480
+integer G6=1568
+integer Ab6=1661
+integer A6=1760
+integer Bb6=1865
+integer B6=1976
+integer C7=2093
+
+sound:SetVolume(10) 
+integer duration=30 
+
+repeat until ultrasonicSensor:GetDistance() < 0.5
+//repeat until touchSensor:IsPressed()
+
+Array<number> redGreenBlueLevels = colorSensor:GetRedGreenBlueLevels()
+number red = redGreenBlueLevels:Get(0)*100
+number green = redGreenBlueLevels:Get(1)*100
+number blue = redGreenBlueLevels:Get(2)*100
+red = math:Round(red)
+green = math:Round(green)
+blue = math:Round(blue)
+integer ired =  cast(integer, red)
+integer igreen = cast(integer,green)
+integer iblue = cast(integer,blue)
+
+screen:Output("Red: " + ired, 1)
+screen:Output("Green: " + igreen, 3)
+screen:Output("Blue: " + iblue, 5)
+
+motor:SetSpeed("B",10)
+motor:SetSpeed("C",10)
+motor:RotateForward("B")
+motor:RotateForward("C")                                    
+if ired=0 and igreen=0 and iblue=0
+    sound:PlayTone(0,500)
+elseif ired>30
+    sound:PlayTone(C6,duration)
+elseif igreen>30 
+    sound:PlayTone(B5,duration)
+elseif iblue>30 
+    sound:PlayTone(A5,duration)
+elseif iblue+igreen+iblue>70 
+    sound:PlayTone(G5,duration+400)
+elseif ired>25
+    sound:PlayTone(F5,duration)
+elseif igreen>25 
+    sound:PlayTone(E5,duration)
+elseif iblue>25 
+    sound:PlayTone(D5,duration)
+elseif iblue+igreen+iblue>50 
+    sound:PlayTone(C5,duration+400)
+elseif ired>20
+    sound:PlayTone(B4,duration)
+elseif igreen>20 
+    sound:PlayTone(A4,duration)
+elseif iblue>20 
+    sound:PlayTone(G4,duration)
+elseif iblue+igreen+iblue>40 
+    sound:PlayTone(F4,duration+400)
+elseif ired>15
+    sound:PlayTone(E4,duration)
+elseif igreen>15 
+    sound:PlayTone(D4,duration)
+elseif iblue>15 
+    sound:PlayTone(C4,duration)
+elseif iblue+igreen+iblue>30 
+    sound:PlayTone(B3,duration+400)
+elseif ired>10
+    sound:PlayTone(A3,duration)
+elseif igreen>10 
+    sound:PlayTone(G3,duration)
+elseif iblue>10 
+    sound:PlayTone(F3,duration)
+elseif iblue+igreen+iblue>20 
+    sound:PlayTone(E3,duration+400)
+elseif ired>5
+    sound:PlayTone(A3,duration)
+elseif igreen>5 
+    sound:PlayTone(G3,duration)
+elseif iblue>5 
+    sound:PlayTone(F3,duration)
+elseif iblue+igreen+iblue>10 
+    sound:PlayTone(E3,duration+400)
+elseif ired>3
+    sound:PlayTone(D3,duration)
+elseif igreen>3 
+    sound:PlayTone(C3,duration)
+elseif iblue>3 
+    sound:PlayTone(C7,duration)
+elseif iblue+igreen+iblue>5 
+    sound:PlayTone(B6,duration+400)
+elseif ired>3
+    sound:PlayTone(A6,duration)
+elseif igreen>3 
+    sound:PlayTone(G6,duration)
+elseif iblue>3 
+    sound:PlayTone(F6,duration)
+elseif iblue+igreen+iblue>3 
+    sound:PlayTone(E6,duration+400)
+elseif ired>1
+    sound:PlayTone(D6,duration)
+elseif igreen>1 
+    sound:PlayTone(Gb6,duration)
+elseif iblue>1 
+    sound:PlayTone(Gb5,duration)
+elseif iblue+igreen+iblue<1
+    sound:PlayTone(Gb4,duration+400)
+else sound:PlayTone(55,250)
+end
+utility:DelayMilliseconds(75) ///set to a level to check color
+end
+//end
+motor:Stop("B")
+motor:Stop("C")
+

@@ -78,8 +78,8 @@ integer C7=2093
 sound:SetVolume(10) 
 integer duration=30 
 
-repeat until ultrasonicSensor:GetDistance() < 0.5
-//repeat until touchSensor:IsPressed()
+//repeat until ultrasonicSensor:GetDistance() < 0.5
+repeat until touchSensor:IsPressed()
 
 Array<number> redGreenBlueLevels = colorSensor:GetRedGreenBlueLevels()
 number red = redGreenBlueLevels:Get(0)*100
@@ -92,91 +92,80 @@ integer ired =  cast(integer, red)
 integer igreen = cast(integer,green)
 integer iblue = cast(integer,blue)
 
-screen:Output("Red: " + ired, 1)
-screen:Output("Green: " + igreen, 3)
-screen:Output("Blue: " + iblue, 5)
+screen:OutputLarge("Red: " + ired, 1)
+screen:OutputLarge("Green: " + igreen, 3)
+screen:OutputLarge("Blue: " + iblue, 5)
 
-motor:SetSpeed("B",10)
-motor:SetSpeed("C",10)
+motor:SetSpeed("B",5)motor:SetSpeed("C",5)
 motor:RotateForward("B")
-motor:RotateForward("C")                                    
-if ired=0 and igreen=0 and iblue=0
-    sound:PlayTone(0,500)
-elseif ired>30
+motor:RotateForward("C")                                     
+if ired>22 and ired<30 and igreen>24 and igreen<30 and iblue>14 and iblue<30// 0 white
+utility:DelayMilliseconds(duration)
+elseif ired>16 and ired<24 and igreen>16 and igreen<24 and iblue>10 and iblue<30 //1 
     sound:PlayTone(C6,duration)
-elseif igreen>30 
+elseif ired>16 and ired<24 and igreen>16 and igreen<24 and iblue>1 and iblue<6 //2 
     sound:PlayTone(B5,duration)
-elseif iblue>30 
+elseif ired>15 and ired<25 and igreen>15 and igreen<24 and iblue>4 and iblue<11 //3 
     sound:PlayTone(A5,duration)
-elseif iblue+igreen+iblue>70 
-    sound:PlayTone(G5,duration+400)
-elseif ired>25
+elseif ired>10 and ired<14 and igreen>18 and igreen<22 and iblue>6 and iblue<10 //4 
+    sound:PlayTone(G5,duration)
+elseif ired>10 and ired<14 and igreen>17 and igreen<21 and iblue>3 and iblue<7 //5 
     sound:PlayTone(F5,duration)
-elseif igreen>25 
+elseif ired>7 and ired<11 and igreen>14 and igreen<20 and iblue>4 and iblue<8 //6 
     sound:PlayTone(E5,duration)
-elseif iblue>25 
+elseif ired>1 and ired<8 and igreen>4 and igreen<12 and iblue>4 and iblue<12 //7
     sound:PlayTone(D5,duration)
-elseif iblue+igreen+iblue>50 
+elseif ired>7 and ired<15 and igreen>15 and igreen<22 and iblue>6 and iblue<15 //8 
     sound:PlayTone(C5,duration+400)
-elseif ired>20
+elseif ired>18 and ired<22 and igreen>8 and igreen<12 and iblue>1 and iblue<4 //9 
     sound:PlayTone(B4,duration)
-elseif igreen>20 
+elseif ired>17 and ired<21 and igreen>5 and igreen<9 and iblue>2 and iblue<6 //10 
     sound:PlayTone(A4,duration)
-elseif iblue>20 
+elseif ired>16 and ired<20 and igreen>3 and igreen<7 and iblue>0 and iblue<3 //11
     sound:PlayTone(G4,duration)
-elseif iblue+igreen+iblue>40 
-    sound:PlayTone(F4,duration+400)
-elseif ired>15
+elseif ired>16 and ired<22 and igreen>1 and igreen<7 and iblue>1 and iblue<7 //12 
+    sound:PlayTone(F4,duration)
+elseif ired>3 and ired<7 and igreen>9 and igreen<13 and iblue>1 and iblue<5 //13 
     sound:PlayTone(E4,duration)
-elseif igreen>15 
+elseif ired>3 and ired<7 and igreen>8 and igreen<12 and iblue>0 and iblue<4 //14 
     sound:PlayTone(D4,duration)
-elseif iblue>15 
-    sound:PlayTone(C4,duration)
-elseif iblue+igreen+iblue>30 
-    sound:PlayTone(B3,duration+400)
-elseif ired>10
-    sound:PlayTone(A3,duration)
-elseif igreen>10 
-    sound:PlayTone(G3,duration)
-elseif iblue>10 
-    sound:PlayTone(F3,duration)
-elseif iblue+igreen+iblue>20 
-    sound:PlayTone(E3,duration+400)
-elseif ired>5
-    sound:PlayTone(A3,duration)
-elseif igreen>5 
-    sound:PlayTone(G3,duration)
-elseif iblue>5 
-    sound:PlayTone(F3,duration)
-elseif iblue+igreen+iblue>10 
-    sound:PlayTone(E3,duration+400)
-elseif ired>3
-    sound:PlayTone(D3,duration)
-elseif igreen>3 
+elseif ired>9 and ired<13 and igreen>4 and igreen<8 and iblue>4 and iblue<8 //15 
     sound:PlayTone(C3,duration)
-elseif iblue>3 
+elseif ired>7 and ired<11 and igreen>8 and igreen<12 and iblue>0 and iblue<3 //16 
+    sound:PlayTone(B3,duration)
+elseif ired>11 and ired<15 and igreen>6 and igreen<9 and iblue>5 and iblue<11 //17
+    sound:PlayTone(A3,duration)
+elseif ired>3 and ired<12 and igreen>1 and igreen<6 and iblue>1 and iblue<6 //18 
+    sound:PlayTone(G3,duration+400)
+elseif ired>5 and ired<11 and igreen>1 and igreen<5 and iblue>0 and iblue<3 //19 
+    sound:PlayTone(F3,duration)
+elseif ired>2 and ired<6 and igreen>7 and igreen<11 and iblue>6 and iblue<10 //20 
+    sound:PlayTone(E3,duration)
+elseif ired>2 and ired<6 and igreen>10 and igreen<14 and iblue>5 and iblue<9 //21
+    sound:PlayTone(D3,duration)
+elseif ired>3 and ired<7 and igreen>5 and igreen<9 and iblue>5 and iblue<9 //22 
     sound:PlayTone(C7,duration)
-elseif iblue+igreen+iblue>5 
-    sound:PlayTone(B6,duration+400)
-elseif ired>3
+elseif ired>3 and ired<7 and igreen>3 and igreen<7 and iblue>3 and iblue<7 //23 
+    sound:PlayTone(B6,duration)
+elseif ired>2 and ired<6 and igreen>2 and igreen<6 and iblue>2 and iblue<6 //24 
     sound:PlayTone(A6,duration)
-elseif igreen>3 
+elseif ired>9 and ired<13 and igreen>4 and igreen<8 and iblue>4 and iblue<8 //25 
     sound:PlayTone(G6,duration)
-elseif iblue>3 
+elseif ired>1 and ired<5 and igreen>3 and igreen<7 and iblue>2 and iblue<6 //26 
     sound:PlayTone(F6,duration)
-elseif iblue+igreen+iblue>3 
-    sound:PlayTone(E6,duration+400)
-elseif ired>1
-    sound:PlayTone(D6,duration)
-elseif igreen>1 
-    sound:PlayTone(Gb6,duration)
-elseif iblue>1 
+elseif ired>1 and ired<5 and igreen>3 and igreen<7 and iblue>3 and iblue<7 //27
+    sound:PlayTone(E6,duration)
+elseif ired>8 and ired<12 and igreen>2 and igreen<6 and iblue>0 and iblue<3 //28 
+    sound:PlayTone(D6,duration+400)
+elseif ired>0 and ired<3 and igreen>1 and igreen<5 and iblue>0 and iblue<3 //29 
     sound:PlayTone(Gb5,duration)
-elseif iblue+igreen+iblue<1
-    sound:PlayTone(Gb4,duration+400)
-else sound:PlayTone(55,250)
+elseif ired=0 and ired<2 and igreen>0 and igreen<2 and iblue>0 and iblue<2 //30 
+    sound:PlayTone(Gb4,duration)
+
+
+else utility:DelayMilliseconds(duration) //sound:PlayTone(55,duration) // this should sound only of NONE is 
 end
-utility:DelayMilliseconds(75) ///set to a level to check color
+utility:DelayMilliseconds(15) ///PAUSE BETWEEN LOOPS
 end
 //end
 motor:Stop("B")

@@ -6,8 +6,8 @@ use Libraries.Robots.Lego.Sound
 use Libraries.Robots.Lego.Button
 use Libraries.Robots.Lego.TouchSensor
 use Libraries.Robots.Lego.UltrasonicSensor
-use Libraries.Robots.Lego.GyroSensor
 use Libraries.Containers.Array
+use Libraries.Robots.Lego.GyroSensor
 use Libraries.Compute.Math
 
 Motor motor
@@ -15,8 +15,8 @@ ColorSensor colorSensor
 Utility utility
 Screen screen
 Sound sound
-UltrasonicSensor ultrasonicSensor 
-//GyroSensor gyroSensor
+UltrasonicSensor ultrasonicSensor
+GyroSensor gyroSensor
 TouchSensor touchSensor
 Button button
 Math math
@@ -24,7 +24,7 @@ Math math
 ultrasonicSensor:SetPort(2)
 touchSensor:SetPort(4)
 colorSensor:SetPort(1)
-//gyroSensor:SetPort(3)
+gyroSensor:SetPort(3)
 integer C3=131
 integer Db3=139
 integer D3=147

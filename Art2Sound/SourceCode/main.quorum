@@ -5,7 +5,7 @@
 // later I will write the data to an arrary and play it back at the end at a much faster speed
 //with apporiate "dance."  
 
-
+//Libraries are needed.
 use Libraries.Robots.Lego.Motor
 use Libraries.Robots.Lego.ColorSensor
 use Libraries.Robots.Lego.Utility
@@ -18,21 +18,24 @@ use Libraries.Containers.Array
 use Libraries.Robots.Lego.GyroSensor
 use Libraries.Compute.Math
 
+//instandceate actions
 Motor motor
 ColorSensor colorSensor
 Utility utility
 Screen screen
 Sound sound
+Button button
+TouchSensor touchSensor
 UltrasonicSensor ultrasonicSensor
 GyroSensor gyroSensor
-TouchSensor touchSensor
-Button button
 Math math
-//set sensor ports
-ultrasonicSensor:SetPort(2)
-touchSensor:SetPort(4)
+//set sensor ports 
 colorSensor:SetPort(1)
+ultrasonicSensor:SetPort(2)
 gyroSensor:SetPort(3)
+touchSensor:SetPort(4)
+
+//Create varibles for the music notation
 integer C3=131
 integer Db3=139
 integer D3=147
@@ -92,6 +95,7 @@ integer de=300// Dotted Eight Note
 integer e=200 // Eigth note
 integer s=100 // 16th Note
 
+// Set up the starting varibles and motors
 sound:SetVolume(100) 
 integer duration=80 
 motor:SetSpeed("A",6)
@@ -100,11 +104,12 @@ motor:SetSpeed("C",10)
 motor:RotateForward("A")
 motor:RotateForward("B")
 motor:RotateForward("C")
-utility:DelayMilliseconds(1000) // just to get the robot moving!
-//repeat until ultrasonicSensor:GetDistance() < 0.5
-repeat until touchSensor:IsPressed()
+utility:DelayMilliseconds(100) 
+// just to get the robot moving!
+//repeat until ultrasonicSensor:GetDistance() < 0.5 //use this to stop the robot when it gets to a object
+repeat until touchSensor:IsPressed()// or use this one to stop by pressing the touch sensor.
 
-
+// make an array and then get the color data form the color sensor and make the numbers into an integer 100 times large than the 0.0 - 1.0 range
 Array<number> redGreenBlueLevels = colorSensor:GetRedGreenBlueLevels()
 number red = redGreenBlueLevels:Get(0)*100
 number green = redGreenBlueLevels:Get(1)*100
@@ -115,13 +120,14 @@ blue = math:Round(blue)
 integer ired =  cast(integer, red)
 integer igreen = cast(integer,green)
 integer iblue = cast(integer,blue)
-
+// put the current color numbers on the screen
 screen:OutputLarge("Red: " + ired, 1)
 screen:OutputLarge("Green: " + igreen, 3)
 screen:OutputLarge("Blue: " + iblue, 5)
 
 motor:SetSpeed("A",6)
-
+// map the RGB intergers to a pitch and set of range of +/- 2 to ajust for small variation
+//these are a lot of elseif's to evaulate for 30 colors
 if ired>22 and ired<30 and igreen>24 and igreen<30 and iblue>14 and iblue<30// 0 white
 utility:DelayMilliseconds(duration)
 elseif ired>16 and ired<24 and igreen>16 and igreen<24 and iblue>10 and iblue<30 //1 
@@ -393,4 +399,5 @@ end
 //end
 motor:Stop("B")
 motor:Stop("C")
+// the surface is not one of colors it will just wait quietly for you to press the touchsensor to leave the program
 
